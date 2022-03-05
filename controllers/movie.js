@@ -35,8 +35,8 @@ module.exports.details = (req, res, next) => {
 
 // Renders the Add form using the add_edit.ejs template
 module.exports.displayAddPage = (req, res, next) => {
-  res.render("movie/add_edit", {
-    title: "Add",
+  res.render('movie/add_edit', {
+    title: 'Add Page',
     movie: {},
   });
 };
@@ -45,7 +45,7 @@ module.exports.displayAddPage = (req, res, next) => {
 module.exports.processAddPage = (req, res, next) => {
   let mov = new Movie(req.body);
   mov.save();
-  res.redirect("/movie/list");
+  res.redirect('/movie/list');
 };
 
 // Gets a movie by id and renders the Edit form using the add_edit.ejs template
@@ -53,8 +53,9 @@ module.exports.displayEditPage = async (req, res, next) => {
   let idMovie = req.params.id;
   let resMovie = await movie.findById(idMovie);
 
-  res.render("movie/add_edit", {
-    title: "Edit",
+  res.render('movie/add_edit', {
+    title: 'Edit',
+    //using a thernary operator in case resMovie is null/undefined
     movie: resMovie ? resMovie : {},
   });
 };
@@ -65,12 +66,14 @@ module.exports.processEditPage = async (req, res, next) => {
   let resMovie = await movie.findById(idMovie);
   await resMovie.overwrite(req.body);
   await resMovie.save();
-  res.redirect("/movie/list");
+  res.redirect('/movie/list');
 };
 
 // Deletes a movie based on its id.
 module.exports.performDelete = async (req, res, next) => {
   let idMovie = req.params.id;
-  await movie.deleteOne({ _id: idMovie });
-  res.redirect("/movie/list");
+  await movie.deleteOne({
+    _id: idMovie
+  });
+  res.redirect('/movie/list');
 };

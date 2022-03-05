@@ -12,10 +12,13 @@
 
             <% if (movie._id)  {%>
 
+            <!--in case EXIST a movie id -->
             <form class="form" method="POST" action="/movie/edit/<%= movie._id %>">
 
                 <%} else {  %>
 
+
+                <!--in case does NOT exist a movie id -->
                 <form class="form" method="POST" action="/movie/add">
 
                     <% }%>
